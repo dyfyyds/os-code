@@ -14,21 +14,36 @@ jobs:
       - name: 检出代码
         uses: actions/checkout@v4
 
+      - name: 查看文件结构 (调试用)
+        # 如果报错找不到 CMakeLists.txt，通过此步确认文件位置
+        run: ls -R
+
       - name: 配置 CMake
-        # 使用 -B 指定构建目录，-S . 指定源码目录
-        run: cmake -S . -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=Release
+        # 如果你的 CMakeLists.txt 在子目录，请将 -S . 改为 -S ./子目录名
+        # 例如: cmake -S ./src -B ${{github.workspace}}/build ...
+        run: |
+          CMAKE_SRC_DIR="."
+          if [ ! -f "$CMAKE_SRC_DIR/CMakeLists.txt" ]; then
+            echo "正在尝试自动寻找 CMakeLists.txt..."
+            CMAKE_SRC_DIR=$(find . -name "CMakeLists.txt" -printf '%h' -quit)
+          fi
+          
+          if [ -z "$CMAKE_SRC_DIR" ]; then
+            echo "错误: 项目中未找到 CMakeLists.txt"
+            exit 1
+          fi
+          
+          echo "使用源码目录: $CMAKE_SRC_DIR"
+          cmake -S "$CMAKE_SRC_DIR" -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=Release
 
       - name: 编译程序
-        # 跨平台构建指令
         run: cmake --build ${{github.workspace}}/build --config Release
 
       - name: 运行测试
-        # 修正了执行路径，并确保可执行文件具备运行权限
-        # 如果你使用了 CTest，建议直接运行 ctest
         run: |
           BUILD_DIR="${{github.workspace}}/build"
-          # 寻找可执行文件（防止在不同 CMake 生成器下路径不一致）
-          TARGET_BIN=$(find $BUILD_DIR -name "ConcBuffer" -type f)
+          # 寻找名为 ConcBuffer 的可执行文件
+          TARGET_BIN=$(find $BUILD_DIR -name "ConcBuffer" -type f -executable | head -n 1)
           
           if [ -z "$TARGET_BIN" ]; then
             echo "错误: 未找到可执行文件 ConcBuffer"
@@ -36,5 +51,4 @@ jobs:
           fi
           
           echo "正在运行: $TARGET_BIN"
-          chmod +x "$TARGET_BIN"
           "$TARGET_BIN"
