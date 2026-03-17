@@ -1,0 +1,17 @@
+steps:
+- name: 检出代码
+  uses: actions/checkout@v4
+
+- name: 配置 CMake
+  # 使用 -B 指定构建目录，-DCMAKE_BUILD_TYPE 指定构建类型
+  run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=Release
+
+- name: 编译程序
+  # 这里的 --build 会自动调用底层的 make 或 ninja
+  run: cmake --build ${{github.workspace}}/build --config Release
+
+- name: 运行测试
+  # 运行编译生成的二进制文件，验证程序逻辑
+  run: |
+    cd ${{github.workspace}}/build
+    ./ConcBuffer
