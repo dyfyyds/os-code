@@ -1,0 +1,20 @@
+[
+{
+  "directory": "/root/code_test/os_code/os/Process/build",
+  "command": "/usr/bin/g++   -g -std=gnu++11 -o CMakeFiles/OSProject.dir/main.cpp.o -c /root/code_test/os_code/os/Process/main.cpp",
+  "file": "/root/code_test/os_code/os/Process/main.cpp",
+  "output": "CMakeFiles/OSProject.dir/main.cpp.o"
+},
+{
+  "directory": "/root/code_test/os_code/os/Process/build",
+  "command": "/usr/bin/g++   -g -std=gnu++11 -o CMakeFiles/OSProject.dir/Process.cpp.o -c /root/code_test/os_code/os/Process/Process.cpp",
+  "file": "/root/code_test/os_code/os/Process/Process.cpp",
+  "output": "CMakeFiles/OSProject.dir/Process.cpp.o"
+},
+{
+  "directory": "/root/code_test/os_code/os/Process/build",
+  "command": "/usr/bin/g++   -g -std=gnu++11 -o CMakeFiles/OSProject.dir/Scheduler.cpp.o -c /root/code_test/os_code/os/Process/Scheduler.cpp",
+  "file": "/root/code_test/os_code/os/Process/Scheduler.cpp",
+  "output": "CMakeFiles/OSProject.dir/Scheduler.cpp.o"
+}
+]

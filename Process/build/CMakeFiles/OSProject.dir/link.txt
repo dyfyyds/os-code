@@ -1,0 +1,1 @@
+/usr/bin/g++ -g CMakeFiles/OSProject.dir/main.cpp.o CMakeFiles/OSProject.dir/Process.cpp.o CMakeFiles/OSProject.dir/Scheduler.cpp.o -o OSProject 
