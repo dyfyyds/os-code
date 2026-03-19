@@ -1,3 +1,0 @@
-/root/code_test/os_code/os/Process/build/CMakeFiles/OSProject.dir
-/root/code_test/os_code/os/Process/build/CMakeFiles/edit_cache.dir
-/root/code_test/os_code/os/Process/build/CMakeFiles/rebuild_cache.dir
